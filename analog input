@@ -1,0 +1,27 @@
+void setup()
+{
+  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(13, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  int light = analogRead(A0);
+  
+  Serial.print("ad_input = ");
+  Serial.println(light);
+  
+  delay(1000); // Wait for 1000 millisecond(s)
+  
+  if(light < 520)
+  {
+    digitalWrite(13, HIGH);
+  }
+  
+  else
+  {
+    digitalWrite(13, LOW);
+  }
+ 
+}
