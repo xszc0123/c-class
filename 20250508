@@ -1,0 +1,65 @@
+int EN1 = 5;
+int EN2 = 6;
+int IN1 = 2;
+int IN2 = 3;
+int IN3 = 7;
+int IN4 = 8;
+int trig = 10;
+int echo = 11;
+ 
+void setup()
+{
+  pinMode(EN1, OUTPUT);
+  pinMode(EN2, OUTPUT);
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+  pinMode(trig, OUTPUT);
+  pinMode(echo, INPUT);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  long duration, distance;
+  /* trig pin에 pulse를 만든다 */
+  digitalWrite(trig, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trig, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trig, LOW);
+  
+  /* echo pin으로 수신함 */
+  duration = pulseIn(echo, HIGH);
+  distance = duration * 17 / 1000;
+  
+  Serial.println(duration);
+  Serial.print("\nDIstance : ");
+  Serial.print(distance);
+  Serial.println(" cm");
+  
+  if(distance > 20)
+  {
+    digitalWrite(IN1, HIGH);
+    digitalWrite(IN2, LOW);
+    analogWrite(EN1, 255);
+    delay(1000); // Wait for 1000 millisecond(s)
+    digitalWrite(IN3, HIGH);
+    digitalWrite(IN4, LOW);
+    analogWrite(EN2, 255);
+    delay(1000); // Wait for 1000 millisecond(s)
+  }
+  
+  if(distance < 20)
+  {
+    digitalWrite(IN1, HIGH);
+    digitalWrite(IN2, LOW);
+    analogWrite(EN1, 0);
+    delay(1000); // Wait for 1000 millisecond(s)
+    digitalWrite(IN3, HIGH);
+    digitalWrite(IN4, LOW);
+    analogWrite(EN2, 0);
+    delay(1000);
+  } 
+}
