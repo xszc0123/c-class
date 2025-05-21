@@ -2,20 +2,16 @@
 #define ECHO 8
 
 void setup() {
-
   Serial.begin(9600); 
 
   pinMode(TRIG, OUTPUT);
   pinMode(ECHO, INPUT);
-
 }
 
 
 void loop()
 {
-
   long duration, distance;
-
 
   digitalWrite(TRIG, LOW);
   delayMicroseconds(2);
@@ -33,6 +29,4 @@ void loop()
   Serial.println(" Cm");
 
   delay(1000);
-
-
 }
